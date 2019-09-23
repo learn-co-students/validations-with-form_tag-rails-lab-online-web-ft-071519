@@ -1,3 +1,5 @@
+require 'pry'
+
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
@@ -8,11 +10,15 @@ class PostsController < ApplicationController
   end
 
   def update
+  
     @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to post_path(@post)
+    else
+      render :edit
+    end
 
-    @post.update(post_params)
-
-    redirect_to post_path(@post)
+    
   end
 
   private
